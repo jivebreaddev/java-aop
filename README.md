@@ -121,3 +121,19 @@ Joinpoint 이란, Advice를 적용할 위치로, PointCut 조건들에 의해 �
     - PostBeanProcessor을 스캔해서 읽어와서 @Transactional이 달린 클래스들에 대해 proxy bean으로 등록합니다.
 
 
+## 4단계 요구사항
+- [] Controller, ArgumentResolver에서 Exception이 발생하면, Exception 처리 및 401로 redirect
+- [] @ControllerAdvice 기능 추가하기
+
+
+- @ControllerAdvice Annotation 추가
+- @ExceptionHandler Annotation 추가
+
+
+- DispatcherServlet에서 Exception을 핸들링하기
+1. DispatcherServlet → initExceptionResolvers(ApplicationContext context)
+  1. 없으면 ServletException 그대로 던지기
+  2. **ExceptionHandlerExceptionResolver → Resolver들을 List로 가진다.**
+
+- **ExceptionAdviceBeanPostProcessor** 가 @ExceptionResolver 와 @ControllerAdvice를 등록한다.
+  1. **ExceptionHandlerMethodResolver로 애노테이션들을 긁어서 가져온다.**
